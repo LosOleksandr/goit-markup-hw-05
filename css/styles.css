@@ -9,6 +9,7 @@
 	--active: #404bbf;
 	--white: #fff;
 	--social-hover: #404bbf;
+	--transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 p,
@@ -87,7 +88,7 @@ body {
 
 .header {
 	padding-top: 24px;
-	padding-bottom: 24px;
+	padding-bottom: 28px;
 }
 .header-container {
 	display: flex;
@@ -129,10 +130,24 @@ span {
 	font-weight: 700;
 	line-height: 1.5;
 	letter-spacing: 0.02em;
-	color: var(--dark);
+	color: inherit;
+	transition: color var(--transition);
+	position: relative;
 }
+
 .current {
 	color: var(--active);
+	position: relative;
+}
+.current::after {
+	content: "";
+	position: absolute;
+	top: 48px;
+	left: 0;
+	width: 100%;
+	height: 4px;
+	background-color: var(--active);
+	border-radius: 2px;
 }
 .header-link:hover,
 .header-link:focus {
@@ -168,6 +183,7 @@ span {
 	line-height: 1.5;
 	letter-spacing: 0.02em;
 	color: var(--text);
+	transition: color var(--transition);
 }
 
 .header-contacts-link:hover,
@@ -212,6 +228,7 @@ span {
 	padding: 16px 32px;
 	cursor: pointer;
 	margin: 0 auto;
+	transition: background-color var(--transition);
 }
 .hero-button:hover,
 .hero-button:focus {
@@ -325,6 +342,7 @@ span {
 	align-items: center;
 	justify-content: center;
 	background-color: var(--primary-brand);
+	transition: background-color var(--transition);
 }
 .team-list-link:hover,
 .team-list-link:focus {
@@ -365,6 +383,7 @@ span {
 	border: 1px solid currentColor;
 	border-radius: 4px;
 	color: #8e8f99;
+	transition: color var(--transition);
 }
 .customers-list-link:hover,
 .customers-list-link:focus {
@@ -428,6 +447,7 @@ span {
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
+	transition: background-color var(--transition);
 }
 .footer-link:hover,
 .footer-link:focus {
@@ -465,14 +485,15 @@ span {
 	border: 1px solid #e7e9fc;
 	border-radius: 4px;
 	padding: 12px 24px;
+	transition: color var(--transition), background-color var(--transition), box-shadow var(--transition),
+		border-color var(--transition);
 }
 .portfolio-menu-btn:hover,
 .portfolio-menu-btn:focus {
 	color: var(--white);
 	background-color: var(--active);
 	box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
-	border-radius: 4px;
-	border-color: transparent;
+	border-color: var(--active);
 }
 .portfolio-list {
 	display: flex;
@@ -483,7 +504,8 @@ span {
 .portfolio-list-link {
 	color: inherit;
 	display: block;
-	box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08);	
+	box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08);
+	transition: box-shadow var(--transition);
 }
 .portfolio-list-link:hover,
 .portfolio-list-link:focus {
@@ -502,4 +524,79 @@ span {
 	margin-bottom: 8px;
 }
 .portfolio-list-text {
+}
+
+.portfolio-list-image {
+	position: relative;
+	overflow: hidden;
+}
+.portfolio-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	transform: translateY(100%);
+	background-color: var(--primary-brand);
+	transition: transform var(--transition);
+}
+
+.portfolio-list-item:hover .portfolio-overlay {
+	transform: translateY(0);
+}
+
+.portfolio-overlay-text {
+	line-height: 1.6;
+	letter-spacing: 0.02em;
+	color: var(--light);
+	padding: 40px 32px 0 32px;
+}
+
+
+/* -----------MODAL--------- */
+
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(46, 47, 66, 0.4);
+	transition: opacity var(--transition);
+}
+
+.is-hidden {
+	opacity: 0;
+	pointer-events: none;
+}
+.modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	min-width: 408px;
+	min-height: 576px;
+	background: #fcfcfc;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+}
+.modal-button {
+	position: absolute;
+	top: 24px;
+	right: 24px;
+	cursor: pointer;
+	background-color: #e7e9fc;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	transition: color var(--transition), background-color var(--transition), border-color var(--transition);
+}
+.modal-button:hover {
+	color: var(--white);
+	background-color: var(--primary-brand);
+	border-color: transparent;
+}
+.modal-button-icon {
+	fill: currentColor;
 }
